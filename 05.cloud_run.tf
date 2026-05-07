@@ -1,6 +1,7 @@
 resource "google_cloud_run_v2_service" "app_service" {
   name     = "my-app-service"
   location = var.region
+  labels   = local.common_labels
 
   template {
     containers {

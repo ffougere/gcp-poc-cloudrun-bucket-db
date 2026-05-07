@@ -5,7 +5,8 @@ resource "google_sql_database_instance" "main_db" {
   depends_on       = [google_service_networking_connection.private_vpc_connection]
 
   settings {
-    tier = "db-f1-micro" # Taille minimale pour test
+    tier        = "db-f1-micro" # Taille minimale pour test
+    user_labels = local.common_labels
     ip_configuration {
       ipv4_enabled    = false # Désactive l'IP publique
       private_network = google_compute_network.vpc_network.id
@@ -25,7 +26,8 @@ resource "google_sql_database_instance" "studio_db" {
   region           = var.region
 
   settings {
-    tier = "db-f1-micro"
+    tier        = "db-f1-micro"
+    user_labels = local.common_labels
     ip_configuration {
       ipv4_enabled            = true   # required for Cloud SQL Studio
       ssl_mode                = "ENCRYPTED_ONLY"

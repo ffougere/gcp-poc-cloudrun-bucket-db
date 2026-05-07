@@ -2,6 +2,7 @@
 resource "google_compute_network" "vpc_network" {
   name                    = "main-vpc"
   auto_create_subnetworks = false
+  labels                  = local.common_labels
 }
 
 # Subnet pour les ressources
@@ -10,6 +11,7 @@ resource "google_compute_subnetwork" "private_subnet" {
   ip_cidr_range = "10.0.1.0/24"
   region        = var.region
   network       = google_compute_network.vpc_network.id
+  labels        = local.common_labels
 }
 
 # Connecteur VPC pour Cloud Run (nécessite une plage /28)
@@ -27,6 +29,7 @@ resource "google_compute_global_address" "private_ip_address" {
   address_type  = "INTERNAL"
   prefix_length = 16
   network       = google_compute_network.vpc_network.id
+  labels        = local.common_labels
 }
 
 resource "google_service_networking_connection" "private_vpc_connection" {

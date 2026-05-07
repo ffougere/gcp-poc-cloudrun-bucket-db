@@ -15,3 +15,10 @@ variable "studio_db_password" {
   type        = string
   sensitive   = true
 }
+
+locals {
+  common_labels = {
+    purpose     = "poc"
+    environnement = "dev"
+  }
+}
